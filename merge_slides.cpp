@@ -30,10 +30,10 @@ int main() {
     while (true) {
         v.resize(0);
         str.resize(0);
-
+        
         getline(cin, str);
         if (str[0] == ' ' || str.size() == 0) break;
-
+        
         // Parsing input string
         string num = "";
         for (int i = 0; i < str.size(); i++) {
@@ -64,7 +64,10 @@ int main() {
         for (int i = 0; i < v.size(); i++)
             for (int j = 0; j < v.size(); j++) dp[i][j] = INF;
 
-        printf("%d\n", mergeSlides(0, v.size() - 1));
+        printf("%d", mergeSlides(0, v.size() - 1));
+
+        if(v.size() == 2) { printf(" (%d,%d)", v[0], v[1]); }
+        printf("\n");
 
         for (int i = 0; i < v.size(); i++) free(dp[i]);
         free(dp);
