@@ -1,5 +1,7 @@
 #include <cstdio>
 #include <vector>
+#include <cstring>
+#include <iostream>
 #include <algorithm>
 using namespace std;
 
@@ -23,20 +25,39 @@ int uni(int x, int y) {
     else return 0;
 }
 
+int input(int* num){
+    string str;
+    cin >> str;
+
+    try{
+        *num = stoi(str);
+    } catch (exception e){
+        perror("error: input must be a integer");
+        exit(1);
+    }
+
+    if(&num == 0) return 1;
+    else return 0;
+}
+
 int main() {
     while(true){
         int v, e, a, b, w;
 
-        scanf("%d", &v);
-        if (!v) break;
-        scanf("%d", &e);
-        if (!e) break;
+        if (input(&v)) break;
+        if (input(&e)) break;
+
+        //scanf("%d", &v);
+        //if (!v) break;
+        //scanf("%d", &e);
+        //if (!e) break;
 
         for (int i = 1; i <= MAX; i++) arr[i] = i;
         vec.resize(0);
 
         for (int i = 0; i < e; i++) {
-            scanf("%d %d %d", &a, &b, &w);
+            //scanf("%d %d %d", &a, &b, &w);
+            input(&a); input(&b); input(&w);
             vec.push_back(mp(w, mp(a, b)));
         }
         sort(vec.begin(), vec.end());
