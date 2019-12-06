@@ -18,11 +18,11 @@ int input(int* num){
     try{
         *num = stoi(str);
     } catch (exception e){
-        perror("error: input must be a integer");
+        fprintf(stderr, "wrong input included(input must be a integer).\n");
         exit(1);
     }
 
-    if(&num == 0) return 1;
+    if(*num == 0) return 1;
     else return 0;
 }
 
@@ -30,13 +30,10 @@ int main() {
     while(true){
         int n, m, a, b, d;
 
-        //scanf("%d", &n);
-        //if (!n) break;
-        //scanf("%d", &m);
-        //if (!m) break;
-
-        input(&n);
-        input(&m);
+        if (input(&n) || input(&m)) {
+            fprintf(stderr, "wrong input included(input must be a none-zero).\n");
+            exit(1);
+        }
 
         for(int i = 0; i <= MAXN; i++){
             D[i] = 0;
@@ -46,8 +43,17 @@ int main() {
         while(!pq.empty()) pq.pop();
 
         for (int i = 0; i < m; i++) {
-            //scanf("%d %d %d", &a, &b, &d);
-            input(&a); input(&b); input(&d);
+            // check for zero input
+            if (input(&a) || input(&b)) {
+                fprintf(stderr, "wrong input included(input must be a valid node id).\n");
+                exit(1);
+            }
+            // check for valid city_id
+            if(a > n || b > n){
+                fprintf(stderr, "wrong input included(input must be a valid node id).\n");
+                exit(1);
+            }
+            input(&d);
             Edge[a].push_back(make_pair(b, d));
             Edge[b].push_back(make_pair(a, d));
         }
@@ -69,6 +75,5 @@ int main() {
 
         printf("%d\n", D[n]);
     }
-
     return 0;
 }
